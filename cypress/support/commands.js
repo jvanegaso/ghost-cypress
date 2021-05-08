@@ -11,6 +11,7 @@
 //
 
 import LoginPage from "./page-objects/login-page";
+import LayoutPage from "./page-objects/layout-page";
 
 // -- This is a parent command --
 Cypress.Commands.add('login', (email, password, useConfig = false) => {
@@ -40,6 +41,30 @@ Cypress.Commands.add('logout', () => {
     });
   });
 });
+
+Cypress.Commands.add('goToProfilePage', () => {
+  const layoutPage = new LayoutPage();
+  layoutPage.getProfileButton().click();
+  cy.wait(1000);
+  layoutPage.getYourProfileLink().click();
+});
+
+
+// Util
+
+Cypress.Commands.add('shouldHaveTrimmedText',
+  { prevSubject: true },
+  (subject, equalTo) => {
+    if (isNaN(equalTo)) {
+      console.log(subject.text());
+      expect(subject.text().trim()).to.eq(equalTo);
+    } else {
+      expect(parseInt(subject.text())).to.eq(equalTo);
+    }
+    return subject;
+  },
+);
+
 
 
 //
