@@ -20,7 +20,7 @@ describe('Create and Publish page', () => {
         publishPage.getPageMenu().click();
         publishPage.getPageTittle().type('Página de Prueba de Cypress');
 
-        // And selected option page pane
+        // And selected option page
         publishPage.getPanelPage().click();
         cy.visit('http://localhost:2368/ghost/#/pages');
         publishPage.getMiniPageTittle().click();
