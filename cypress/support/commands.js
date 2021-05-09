@@ -12,6 +12,8 @@
 
 import LoginPage from "./page-objects/login-page";
 import LayoutPage from "./page-objects/layout-page";
+import PostsPage from "./page-objects/posts-page";
+import PostPage from "./page-objects/post-page";
 
 // -- This is a parent command --
 Cypress.Commands.add('login', (email, password, useConfig = false) => {
@@ -64,6 +66,33 @@ Cypress.Commands.add('shouldHaveTrimmedText',
     return subject;
   },
 );
+
+Cypress.Commands.add('createPost', (titlePost,descriptionPost) => {
+  cy.fixture('config').then(config => {
+    const { ghostBaseUrl } = config;
+    cy.visit(`${ghostBaseUrl}#/posts`);
+
+    const postsPage = new PostsPage();
+    cy.wait(2100);
+    postsPage.getNewPostButton().click();
+
+
+    const newPostPage = new PostPage();
+    newPostPage.getTitleInput().type(titlePost);
+    cy.wait(3000);
+    newPostPage.getDescriptionImput().click();
+    // then($desc => {
+    //   $desc[0].innerText = descriptionPost;
+    //   //.type(descriptionPost, {force:true});
+    // });
+    // cy.wait(8000);
+    newPostPage.getTitleInput().click()
+    newPostPage.getPublishButtomMenu().click();
+    cy.wait(1100);
+    newPostPage.getPublishButtom().click();
+  });
+});
+
 
 
 
