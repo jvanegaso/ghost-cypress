@@ -23,6 +23,8 @@ describe('Create and Publish page', () => {
         // And selected option page
         publishPage.getPanelPage().click();
         cy.visit('http://localhost:2368/ghost/#/pages');
+
+
         publishPage.getMiniPageTittle().click();
 
         // And selected publish selector
@@ -30,7 +32,8 @@ describe('Create and Publish page', () => {
         publishPage.getPublishButton().click();
 
         //Then publish and create page        
-        publishPage.getPublishToastButton().click();
+        publishPage.getPublishToastButton().click(); 
     });
+
 
 });
