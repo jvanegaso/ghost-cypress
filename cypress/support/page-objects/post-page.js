@@ -5,7 +5,8 @@ class PostPage {
     }
 
     getTitleInput() {
-        return cy.get('textarea.gh-editor-title');
+        return cy.get('textarea.gh-editor-title');  
+        //return cy.get('.gh-koenig-editor-pane textarea');
     }
 
     getDescriptionImput() {

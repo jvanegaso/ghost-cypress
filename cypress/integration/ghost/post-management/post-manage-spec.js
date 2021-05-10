@@ -16,62 +16,60 @@ describe('Gestion de post', () => {
     postsPage = new PostsPage();
     postPage = new PostPage();
     layoutPage = new LayoutPage();
+    //cy.login(null, null, true);
   });
 
-  context('Publicar el post de manera correcta', () => {
-
+  context('Deberia mostrar error por titulo errado', () => { 
     it('Crear el post con el titulo', () => {
-      cy.login(null, null, true);
-      cy.get('.gh-nav-list.gh-nav-manage a[href="#/posts/"]').click();
-      cy.wait(1000);
-      cy.get('.view-actions a[href="#/editor/post/"]').click();
-      cy.wait(1000);
-
-      cy.fixture('config').then(config => {
-        const { ghostBaseUrl } = config;
-        cy.intercept('POST', `${ghostBaseUrl}api/v3/admin/posts/`).as('postIterceptor');
-        cy.get('.gh-koenig-editor-pane textarea')
-          .click()
-          .type('Titulo de post')
-          .blur();
-        cy.wait('@postIterceptor').then((interceptor) => {
-          const resposeBody = interceptor.response.body;
-          if (resposeBody && Array.isArray(resposeBody.posts)) {
-            const { id = null } = resposeBody.posts[0];
-            if (id) {
-              expect(cy.url().should('include', `editor/post/${id}`));
-              cy.wait(1000);
-              cy.visit(`${ghostBaseUrl}#/editor/post/${id}`);
-              cy.wait(1000);
-              cy.get('.gh-publishmenu .gh-publishmenu-trigger')
-                .click();
-              cy.wait(500);
-              const publishBtn = cy.get('.gh-publishmenu-dropdown .gh-publishmenu-footer .gh-publishmenu-button');
-              publishBtn.click();
-              cy.wait(1500);
-              layoutPage.getNotificationWrapper()
-                .contains('Published! ')
-                .should('be.visible');
-            }
-          }
-        });
+    
+      // Given a title and description 
+      const titlePost  = '';
+      const descriptiont = '';
+  
+      // When a user try to create a post 
+      cy.createPost(titlePost,descriptiont);
+        
+      // Then the application display a message that the post was published.
+      layoutPage.getNotificationWrapper()
+        .contains('Error!')
+         .should('be.visible');
       });
     });
 
+  context('Deberia publicar el post de manera correcta', () => { 
+    it('Crear el post con el titulo', () => {
+    
+    // Given a title and description 
+    const titlePost  = 'Welcome to Test Ghost';
+    const descriptiont = 'Horrible Ghost is now creating a post';
+
+    // When a user try to create a post 
+    cy.createPost(titlePost,descriptiont);
+      
+    // Then the application display a message that the post was published.
+    layoutPage.getNotificationWrapper()
+      .contains('Published!')
+       .should('be.visible');
+    });
   });
 
-  // it('Deberia publicar el post de manera correcta .', () => {
-  //   // Given a title and description 
-  //    const titlePost  = 'TestCypress1';
-  //    const descriptionPost = 'PruebADecreacion1';
 
-  //    // When a user try to create a post 
-  //    cy.createPost(titlePost,descriptionPost)
+  context('Deberia mostrar un error porque se crean dos post con el mismo titulo ', () => { 
+    it('Crear el post con el titulo', () => {
+    
+    // Given a title and description 
+    const titlePost  = 'Welcome to Test Ghost';
+    const descriptiont = 'Horrible Ghost is now creating a post';
 
-  //   // Then the application display a message that the post was published.
-  //   layoutPage.getNotificationWrapper()
-  //     .contains('Published!')
-  //      .should('be.visible');
-  // });
+    // When a user try to create a post 
+    cy.createPost(titlePost,descriptiont);
+    //cy.createPost(titlePost,descriptiont);
+      
+    // Then the application display a message that the post was published.
+    layoutPage.getNotificationWrapper()
+      .contains('Error')
+       .should('be.visible');
+    });
+  });
 
 });

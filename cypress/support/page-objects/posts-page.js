@@ -3,7 +3,7 @@ class PostsPage {
     }
 
     getNewPostButton() {
-       return cy.get('.view-actions').contains('New post')
+       return cy.get('.view-actions a[href="#/editor/post/"]');
     }
 }
 
