@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import DeletePage from "../../support/page-objects/delete-page";
+import DeletePage from "../../../support/page-objects/delete-page";
 
 let deletePage = null;
 

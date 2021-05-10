@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import PublishPage from "../../support/page-objects/publish-page";
+import PublishPage from "../../../support/page-objects/publish-page";
 
 let publishPage = null;
 
@@ -17,7 +17,8 @@ describe('Create and Publish page', () => {
         cy.visit('http://localhost:2368/ghost/#/pages');
 
         // When a user creates a page 
-        publishPage.getPageMenu().click();
+        //publishPage.getPageMenu().click();
+        //cy.get('.gh-nav-list.gh-nav-manage a[href^="#/Pages"]').click();
         publishPage.getPageTittle().type('Página de Prueba de Cypress');
 
         // And selected option page
