@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import UnPublishPage from "../../support/page-objects/unpublish-page";
+import UnPublishPage from "../../../support/page-objects/unpublish-page";
 
 let unPublishPage = null;
 
