@@ -88,7 +88,7 @@ describe('Authentication Management', () => {
     cy.url().should('include', '/site');
 
     // Teardown
-    scy.logout();
+    cy.logout();
   });
 
   it('Should block the user to go to /site page if session is no longer active', () => {

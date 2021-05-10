@@ -95,17 +95,17 @@ describe('Password Management :: Handle errors', () => {
 
     // And with a new insecure password
     profilePage.getPassOld().type('Dummy Password');
-    profilePage.getPassNew().type('pass123');
-    profilePage.getPassNewVerification().type('pass123');
+    profilePage.getPassNew().type('password123');
+    profilePage.getPassNewVerification().type('password123');
 
 
     // When the user tries to change the password
     profilePage.getChangePasswordBtn().click();
 
-    // Then the application displays an error message: Password must be at least 10 characters long
+    // Then the application displays an error message: Sorry, you cannot use an insecure password
     profilePage.getNewPassResponse()
       .should('be.visible')
-      .shouldHaveTrimmedText('Password must be at least 10 characters long');
+      .shouldHaveTrimmedText('Sorry, you cannot use an insecure password');
   });
   
   it('Should show an error whether the new password is insecure', () => {
