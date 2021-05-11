@@ -27,6 +27,10 @@ https://github.com/jvanegaso/ghost-cucumber-testing
 
 # Criterios de Evaluación
 
+## Wiki de Análisis de las herramientas
+
+https://github.com/jvanegaso/ghost-cypress/wiki/analisis-herramientas
+
 ## Funcionalidades de Prueba
 
 - Autenticación
