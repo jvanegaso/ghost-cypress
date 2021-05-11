@@ -17,21 +17,25 @@ describe('Edición de post', () => {
        postsPage = new PostsPage();
        postPage = new PostPage();
        layoutPage = new LayoutPage();
-       cy.login(null,null,true);
+ 
     });
   
     it('Deberia publicar el post de manera correcta .', () => {
       // Given a title and description 
-       const titlePostToEdit  = 'Welcome to Ghost';
+       const titlePostToEdit  = 'Welcome to Test Ghost';
        const textToAddPostToEdit = 'Welcome to Horrible Ghost';
   
+       cy.createPost(titlePostToEdit,'');
+       cy.wait(2000);
        // When a user try to create a post 
-       cy.editPost(titlePostToEdit,textToAddPostToEdit)
+       //cy.editPost(titlePostToEdit,textToAddPostToEdit)
   
       // Then the application display a message that the post was published.
       layoutPage.getNotificationWrapper()
-        .contains('Updated.')
+        .contains('Published!')
          .should('be.visible');
+       //  cy.logout();
+       //  cy.wait(2000);
     });
 
   });

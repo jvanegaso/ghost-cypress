@@ -156,18 +156,20 @@ Cypress.Commands.add('editPost', (titlePostToEdit,textToAddPostToEdit) => {
     cy.visit(`${ghostBaseUrl}#/posts`);
 
     //const postsPage = new PostsPage();
-    cy.wait(1000);
+    cy.wait(5000);
     
     cy.get('.permalink.gh-list-data.gh-post-list-title.ember-view').then($titles =>  {
       const firstMatch= $titles.filter((i, t) => {
         return t.innerText.indexOf(titlePostToEdit) > -1;
       });
       if (firstMatch.length > 0) {
+        debugger;
         cy.wrap(firstMatch[0]).click({force: true});
       }
     });
+    cy.wait(2560);
 
-    cy.get('.gh-koenig-editor-pane textarea').click().type(titlePostToEdit + textToAddPostToEdit).blur();
+    cy.get('.gh-koenig-editor-pane textarea').click().type(textToAddPostToEdit).blur();
 
     cy.wait('@postIterceptor').then((interceptor) => {
       const resposeBody = interceptor.response.body;

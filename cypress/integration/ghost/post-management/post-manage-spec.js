@@ -19,23 +19,6 @@ describe('Gestion de post', () => {
     //cy.login(null, null, true);
   });
 
-  context('Deberia mostrar error por titulo errado', () => { 
-    it('Crear el post con el titulo', () => {
-    
-      // Given a title and description 
-      const titlePost  = '';
-      const descriptiont = '';
-  
-      // When a user try to create a post 
-      cy.createPost(titlePost,descriptiont);
-        
-      // Then the application display a message that the post was published.
-      layoutPage.getNotificationWrapper()
-        .contains('Error!')
-         .should('be.visible');
-      });
-    });
-
   context('Deberia publicar el post de manera correcta', () => { 
     it('Crear el post con el titulo', () => {
     
@@ -50,26 +33,12 @@ describe('Gestion de post', () => {
     layoutPage.getNotificationWrapper()
       .contains('Published!')
        .should('be.visible');
-    });
-  });
-
-
-  context('Deberia mostrar un error porque se crean dos post con el mismo titulo ', () => { 
-    it('Crear el post con el titulo', () => {
     
-    // Given a title and description 
-    const titlePost  = 'Welcome to Test Ghost';
-    const descriptiont = 'Horrible Ghost is now creating a post';
-
-    // When a user try to create a post 
-    cy.createPost(titlePost,descriptiont);
-    //cy.createPost(titlePost,descriptiont);
-      
-    // Then the application display a message that the post was published.
-    layoutPage.getNotificationWrapper()
-      .contains('Error')
-       .should('be.visible');
+    //   cy.logout();
+     //  cy.wait(2000);
     });
+
+
   });
 
 });
