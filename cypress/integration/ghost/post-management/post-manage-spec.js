@@ -16,7 +16,7 @@ describe('Gestion de post', () => {
     postsPage = new PostsPage();
     postPage = new PostPage();
     layoutPage = new LayoutPage();
-    //cy.login(null, null, true);
+    cy.login(null, null, true);
   });
 
   context('Deberia publicar el post de manera correcta', () => { 
