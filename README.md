@@ -74,7 +74,8 @@ El código fuente de cada escenario detalla las especificaciones GIVEN-WHEN-THEN
 
 ### Creación y Publicación de Páginas
 
-- Should create a page and publish it!
+- Should create a page 
+- Should publish a page!
 
 ### Borrar páginas
 
@@ -82,7 +83,8 @@ El código fuente de cada escenario detalla las especificaciones GIVEN-WHEN-THEN
 
 ### Ocultar publicación
 
-- Should delete a page!
+- Should create a page and publish it!
+- Should unpublish a page!
 
 
 ## 4. Gestión de Staff
