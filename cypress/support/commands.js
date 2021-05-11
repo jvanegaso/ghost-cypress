@@ -117,10 +117,11 @@ Cypress.Commands.add('createPost', (titlePost,descriptionPost) => {
  cy.fixture('config').then(config => {
    const { ghostBaseUrl } = config;
    cy.login(null, null, true);
-   cy.visit(`${ghostBaseUrl}#/posts`);
-   cy.wait(100);
-   postsPage.getNewPostButton().click();
-   cy.wait(100);
+   cy.get('.gh-nav-list.gh-nav-manage a[href="#/posts/"]').click();
+   cy.wait(1000);
+   cy.get('.view-actions a[href="#/editor/post/"]').click();
+   cy.wait(1000);
+
    
    //Intercept the post request: 
    cy.intercept('POST', `${ghostBaseUrl}api/v3/admin/posts/`).as('postIterceptor');
@@ -149,30 +150,43 @@ Cypress.Commands.add('createPost', (titlePost,descriptionPost) => {
 });
 
 
-Cypress.Commands.add('editPost', (titlePost,descriptionPost) => {
+Cypress.Commands.add('editPost', (titlePostToEdit,textToAddPostToEdit) => {
   cy.fixture('config').then(config => {
     const { ghostBaseUrl } = config;
     cy.visit(`${ghostBaseUrl}#/posts`);
 
-    const postsPage = new PostsPage();
-    cy.wait(2100);
-    postsPage.getNewPostButton().click();
+    //const postsPage = new PostsPage();
+    cy.wait(1000);
+    
+    cy.get('.permalink.gh-list-data.gh-post-list-title.ember-view').then($titles =>  {
+      const firstMatch= $titles.filter((i, t) => {
+        return t.innerText.indexOf(titlePostToEdit) > -1;
+      });
+      if (firstMatch.length > 0) {
+        cy.wrap(firstMatch[0]).click({force: true});
+      }
+    });
 
+    cy.get('.gh-koenig-editor-pane textarea').click().type(titlePostToEdit + textToAddPostToEdit).blur();
 
-    const newPostPage = new PostPage();
-    newPostPage.getTitleInput().type(titlePost);
-    cy.wait(3000);
-    newPostPage.getDescriptionImput().click();
-    // then($desc => {
-    //   $desc[0].innerText = descriptionPost;
-    //   //.type(descriptionPost, {force:true});
-    // });
-    cy.wait(8000);
-    newPostPage.getTitleInput().click();
-    cy.wait(8000);
-    newPostPage.getPublishButtomMenu().click();
-    cy.wait(1100);
-    newPostPage.getPublishButtom().click();
+    cy.wait('@postIterceptor').then((interceptor) => {
+      const resposeBody = interceptor.response.body;
+      if (resposeBody && Array.isArray(resposeBody.posts)) {
+        const { id = null } = resposeBody.posts[0];
+        if (id) {
+          expect(cy.url().should('include', `editor/post/${id}`));
+          cy.wait(2000);
+          cy.visit(`${ghostBaseUrl}#/editor/post/${id}`);
+          cy.wait(2000);
+          cy.get('.gh-publishmenu .gh-publishmenu-trigger')
+            .click();
+          cy.wait(500);
+          const publishBtn = cy.get('.gh-publishmenu-dropdown .gh-publishmenu-footer .gh-publishmenu-button');
+          publishBtn.click();
+          cy.wait(1500);
+        }
+      }
+    });
   });
 });
 
@@ -181,19 +195,27 @@ Cypress.Commands.add('deletePost', (titlePost) => {
     const { ghostBaseUrl } = config;
     cy.visit(`${ghostBaseUrl}#/posts`);
 
-    const postsPage = new PostsPage();
-    cy.wait(2100);
+    //const postsPage = new PostsPage();
+    cy.wait(1000);
     
-    cy.get('.permalink gh-list-data gh-post-list-title ember-view').click();
-    cy.wait(1000);
-    cy.get('.gh-content-entry-title').select(titlePost) .click();
-    cy.wait(1000);
+    cy.get('.permalink.gh-list-data.gh-post-list-title.ember-view').then($titles =>  {
+      const firstMatch= $titles.filter((i, t) => {
+        return t.innerText.indexOf(titlePost) > -1;
+      });
+      if (firstMatch.length > 0) {
+        cy.wrap(firstMatch[0]).click({force: true});
+      }
+    });
+   // cy.get('a.permalink.gh-list-data.gh-post-list-title.ember-view').select(titlePost).should('have.value', titlePost).click();
+    cy.wait(2000);
 
     cy.get('button.post-settings').click();
     cy.wait(1000);
 
-    cy.get('button.gh-btn gh-btn-hover-red gh-btn-icon settings-menu-delete-button').click();
-    cy.wait();
+    cy.get('button.gh-btn.gh-btn-hover-red.gh-btn-icon.settings-menu-delete-button').click({force: true});
+    cy.wait(100);
+
+    cy.get('.fullscreen-modal .gh-btn.gh-btn-red').click();
   });
 });
 

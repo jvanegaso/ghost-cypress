@@ -22,11 +22,11 @@ describe('Edición de post', () => {
   
     it('Deberia publicar el post de manera correcta .', () => {
       // Given a title and description 
-       const titlePost  = 'Welcome to Ghost';
-       const newTitlePost = 'Welcome to Horrible Ghost';
+       const titlePostToEdit  = 'Welcome to Ghost';
+       const textToAddPostToEdit = 'Welcome to Horrible Ghost';
   
        // When a user try to create a post 
-       cy.editPost(titlePost,newTitlePost)
+       cy.editPost(titlePostToEdit,textToAddPostToEdit)
   
       // Then the application display a message that the post was published.
       layoutPage.getNotificationWrapper()

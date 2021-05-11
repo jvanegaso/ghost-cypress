@@ -21,15 +21,12 @@ describe('Eliminación de post', () => {
   
     it('Deberia Eliminar el post de manera correcta .', () => {
       // Given a title and description 
-       const titlePostToDelete  = 'Welcome to Ghost';
+       const titlePostToDelete  = 'Welcome to Test Ghost';
        cy.login(null,null,true);
        // When a user try to create a post 
        cy.deletePost(titlePostToDelete);
-  
       // Then the application display a message that the post was published.
-      layoutPage.getNotificationWrapper()
-        .contains('Deleted!')
-         .should('be.visible');
+        cy.url().should('include','#/post');
     });
 
   });
