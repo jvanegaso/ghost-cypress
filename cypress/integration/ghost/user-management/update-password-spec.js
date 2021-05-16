@@ -18,10 +18,13 @@ describe('Password Management :: Update the Password', () => {
     // Given a logged in user 
     cy.login(null, null, true);
     cy.wait(1000);
-
+    cy.screenshot();
+    
+    
     // And the user goes to My profile page
     cy.goToProfilePage();
     cy.wait(1000);
+    cy.screenshot();
 
     // And fill the old password and new password
     cy.fixture('config').then(config => {

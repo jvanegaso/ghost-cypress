@@ -16,10 +16,10 @@ import PostsPage from "./page-objects/posts-page";
 import PostPage from "./page-objects/post-page";
 
 // -- This is a parent command --
-Cypress.Commands.add('login', (email, password, useConfig = false) => {
+Cypress.Commands.add('login', (email, password, version, useConfig = false) => {
   cy.fixture('config').then(config => {
-    const { ghostBaseUrl, usuario, clave } = config;
-    cy.visit(`${ghostBaseUrl}#/signin`);
+    const { urls, usuario, clave } = config;
+    cy.visit(`${urls[version]}#/signin`);
 
     const loginPage = new LoginPage();
     if (!useConfig) {
@@ -34,12 +34,13 @@ Cypress.Commands.add('login', (email, password, useConfig = false) => {
   });
 });
 
-Cypress.Commands.add('logout', () => {
+Cypress.Commands.add('logout', (version) => {
   cy.fixture('config').then(config => {
-    const { ghostBaseUrl } = config;
+    debugger;
+    const { urls } = config;
     cy.clearCookies({ domain: null }).then(() => {
-      cy.visit(`${ghostBaseUrl}#/signin`);
       cy.reload();
+      // cy.visit(`${urls[version]}#/signin`);
     });
   });
 });
@@ -53,7 +54,6 @@ Cypress.Commands.add('goToProfilePage', () => {
 
 
 // Util
-
 Cypress.Commands.add('shouldHaveTrimmedText',
   { prevSubject: true },
   (subject, equalTo) => {
@@ -67,104 +67,108 @@ Cypress.Commands.add('shouldHaveTrimmedText',
   },
 );
 
-Cypress.Commands.add('createPost', (titlePost,descriptionPost) => {
+Cypress.Commands.add('stepScreenshot', (stepKey, version) => {
+  const newImgName = `${version}/${stepKey}__v${version}`;
+  cy.screenshot(newImgName);
+});
+
+Cypress.Commands.add('createPost', (titlePost, descriptionPost) => {
 
   const postsPage = new PostsPage();
   const postPage = new PostPage();
   //   cy.wait(2100);
   //  
 
- cy.fixture('config').then(config => {
-   const { ghostBaseUrl } = config;
-   cy.login(null, null, true);
-   cy.visit(`${ghostBaseUrl}#/posts`);
-   cy.wait(100);
-   postsPage.getNewPostButton().click();
-   cy.wait(100);
-   
-   //Intercept the post request: 
-   cy.intercept('POST', `${ghostBaseUrl}api/v3/admin/posts/`).as('postIterceptor');
+  cy.fixture('config').then(config => {
+    const { ghostBaseUrl } = config;
+    cy.login(null, null, true);
+    cy.visit(`${ghostBaseUrl}#/posts`);
+    cy.wait(100);
+    postsPage.getNewPostButton().click();
+    cy.wait(100);
 
-   //get the title element
-   cy.get('.gh-koenig-editor-pane textarea').click().type(titlePost).blur();
-   cy.wait('@postIterceptor').then((interceptor) => {
-     const resposeBody = interceptor.response.body;
-     if (resposeBody && Array.isArray(resposeBody.posts)) {
-       const { id = null } = resposeBody.posts[0];
-       if (id) {
-         expect(cy.url().should('include', `editor/post/${id}`));
-         cy.wait(2000);
-         cy.visit(`${ghostBaseUrl}#/editor/post/${id}`);
-         cy.wait(2000);
-         cy.get('.gh-publishmenu .gh-publishmenu-trigger')
-           .click();
-         cy.wait(500);
-         const publishBtn = cy.get('.gh-publishmenu-dropdown .gh-publishmenu-footer .gh-publishmenu-button');
-         publishBtn.click();
-         cy.wait(1500);
-       }
-     }
-   });
- });
+    //Intercept the post request: 
+    cy.intercept('POST', `${ghostBaseUrl}api/v3/admin/posts/`).as('postIterceptor');
+
+    //get the title element
+    cy.get('.gh-koenig-editor-pane textarea').click().type(titlePost).blur();
+    cy.wait('@postIterceptor').then((interceptor) => {
+      const resposeBody = interceptor.response.body;
+      if (resposeBody && Array.isArray(resposeBody.posts)) {
+        const { id = null } = resposeBody.posts[0];
+        if (id) {
+          expect(cy.url().should('include', `editor/post/${id}`));
+          cy.wait(2000);
+          cy.visit(`${ghostBaseUrl}#/editor/post/${id}`);
+          cy.wait(2000);
+          cy.get('.gh-publishmenu .gh-publishmenu-trigger')
+            .click();
+          cy.wait(500);
+          const publishBtn = cy.get('.gh-publishmenu-dropdown .gh-publishmenu-footer .gh-publishmenu-button');
+          publishBtn.click();
+          cy.wait(1500);
+        }
+      }
+    });
+  });
 });
 
 
-Cypress.Commands.add('createPost', (titlePost,descriptionPost) => {
+Cypress.Commands.add('createPost', (titlePost, descriptionPost) => {
 
   const postsPage = new PostsPage();
   const postPage = new PostPage();
 
- cy.fixture('config').then(config => {
-   const { ghostBaseUrl } = config;
-   cy.login(null, null, true);
-   cy.get('.gh-nav-list.gh-nav-manage a[href="#/posts/"]').click();
-   cy.wait(1000);
-   cy.get('.view-actions a[href="#/editor/post/"]').click();
-   cy.wait(1000);
+  cy.fixture('config').then(config => {
+    const { ghostBaseUrl } = config;
+    cy.login(null, null, true);
+    cy.get('.gh-nav-list.gh-nav-manage a[href="#/posts/"]').click();
+    cy.wait(1000);
+    cy.get('.view-actions a[href="#/editor/post/"]').click();
+    cy.wait(1000);
 
-   
-   //Intercept the post request: 
-   cy.intercept('POST', `${ghostBaseUrl}api/v3/admin/posts/`).as('postIterceptor');
 
-   //get the title element
-   cy.get('.gh-koenig-editor-pane textarea').click().type(titlePost).blur();
-   cy.wait('@postIterceptor').then((interceptor) => {
-     const resposeBody = interceptor.response.body;
-     if (resposeBody && Array.isArray(resposeBody.posts)) {
-       const { id = null } = resposeBody.posts[0];
-       if (id) {
-         expect(cy.url().should('include', `editor/post/${id}`));
-         cy.wait(2000);
-         cy.visit(`${ghostBaseUrl}#/editor/post/${id}`);
-         cy.wait(2000);
-         cy.get('.gh-publishmenu .gh-publishmenu-trigger')
-           .click();
-         cy.wait(500);
-         const publishBtn = cy.get('.gh-publishmenu-dropdown .gh-publishmenu-footer .gh-publishmenu-button');
-         publishBtn.click();
-         cy.wait(1500);
-       }
-     }
-   });
- });
+    //Intercept the post request: 
+    cy.intercept('POST', `${ghostBaseUrl}api/v3/admin/posts/`).as('postIterceptor');
+
+    //get the title element
+    cy.get('.gh-koenig-editor-pane textarea').click().type(titlePost).blur();
+    cy.wait('@postIterceptor').then((interceptor) => {
+      const resposeBody = interceptor.response.body;
+      if (resposeBody && Array.isArray(resposeBody.posts)) {
+        const { id = null } = resposeBody.posts[0];
+        if (id) {
+          expect(cy.url().should('include', `editor/post/${id}`));
+          cy.wait(2000);
+          cy.visit(`${ghostBaseUrl}#/editor/post/${id}`);
+          cy.wait(2000);
+          cy.get('.gh-publishmenu .gh-publishmenu-trigger')
+            .click();
+          cy.wait(500);
+          const publishBtn = cy.get('.gh-publishmenu-dropdown .gh-publishmenu-footer .gh-publishmenu-button');
+          publishBtn.click();
+          cy.wait(1500);
+        }
+      }
+    });
+  });
 });
 
 
-Cypress.Commands.add('editPost', (titlePostToEdit,textToAddPostToEdit) => {
+Cypress.Commands.add('editPost', (titlePostToEdit, textToAddPostToEdit) => {
   cy.fixture('config').then(config => {
     const { ghostBaseUrl } = config;
     cy.visit(`${ghostBaseUrl}#/posts`);
 
     //const postsPage = new PostsPage();
     cy.wait(5000);
-    
-    cy.get('.permalink.gh-list-data.gh-post-list-title.ember-view').then($titles =>  {
-      const firstMatch= $titles.filter((i, t) => {
+
+    cy.get('.permalink.gh-list-data.gh-post-list-title.ember-view').then($titles => {
+      const firstMatch = $titles.filter((i, t) => {
         return t.innerText.indexOf(titlePostToEdit) > -1;
       });
       if (firstMatch.length > 0) {
-        debugger;
-        cy.wrap(firstMatch[0]).click({force: true});
+        cy.wrap(firstMatch[0]).click({ force: true });
       }
     });
     cy.wait(2560);
@@ -199,22 +203,22 @@ Cypress.Commands.add('deletePost', (titlePost) => {
 
     //const postsPage = new PostsPage();
     cy.wait(1000);
-    
-    cy.get('.permalink.gh-list-data.gh-post-list-title.ember-view').then($titles =>  {
-      const firstMatch= $titles.filter((i, t) => {
+
+    cy.get('.permalink.gh-list-data.gh-post-list-title.ember-view').then($titles => {
+      const firstMatch = $titles.filter((i, t) => {
         return t.innerText.indexOf(titlePost) > -1;
       });
       if (firstMatch.length > 0) {
-        cy.wrap(firstMatch[0]).click({force: true});
+        cy.wrap(firstMatch[0]).click({ force: true });
       }
     });
-   // cy.get('a.permalink.gh-list-data.gh-post-list-title.ember-view').select(titlePost).should('have.value', titlePost).click();
+    // cy.get('a.permalink.gh-list-data.gh-post-list-title.ember-view').select(titlePost).should('have.value', titlePost).click();
     cy.wait(2000);
 
     cy.get('button.post-settings').click();
     cy.wait(1000);
 
-    cy.get('button.gh-btn.gh-btn-hover-red.gh-btn-icon.settings-menu-delete-button').click({force: true});
+    cy.get('button.gh-btn.gh-btn-hover-red.gh-btn-icon.settings-menu-delete-button').click({ force: true });
     cy.wait(100);
 
     cy.get('.fullscreen-modal .gh-btn.gh-btn-red').click();
