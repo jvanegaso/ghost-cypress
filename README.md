@@ -2,7 +2,7 @@
 
 ## Pasos para configurar la aplicación
 
-Modificar el archivo `config.js` que se encuentra en la raíz del proyecto. 
+Modificar el archivo `config.js` que se encuentra en `cypress\fixtures\config.json`. 
 
 ```javascript
 module.exports = {
