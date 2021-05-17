@@ -14,6 +14,7 @@ import LoginPage from "./page-objects/login-page";
 import LayoutPage from "./page-objects/layout-page";
 import PostsPage from "./page-objects/posts-page";
 import PostPage from "./page-objects/post-page";
+import TagPage from "./page-objects/tags-page";
 
 // -- This is a parent command --
 Cypress.Commands.add('login', (email, password, version, useConfig = false) => {
@@ -36,7 +37,7 @@ Cypress.Commands.add('login', (email, password, version, useConfig = false) => {
 
 Cypress.Commands.add('logout', (version) => {
   cy.fixture('config').then(config => {
-    debugger;
+   // debugger;
     const { urls } = config;
     cy.clearCookies({ domain: null }).then(() => {
       cy.reload();
@@ -114,14 +115,14 @@ Cypress.Commands.add('createPost', (titlePost, descriptionPost) => {
 });
 
 
-Cypress.Commands.add('createPost', (titlePost, descriptionPost) => {
+Cypress.Commands.add('createPost', (titlePost, descriptionPost, version) => {
 
   const postsPage = new PostsPage();
   const postPage = new PostPage();
 
   cy.fixture('config').then(config => {
-    const { ghostBaseUrl } = config;
-    cy.login(null, null, true);
+    const { urls } = config;
+  //  cy.login(null, null, version, true);
     cy.get('.gh-nav-list.gh-nav-manage a[href="#/posts/"]').click();
     cy.wait(1000);
     cy.get('.view-actions a[href="#/editor/post/"]').click();
@@ -129,7 +130,7 @@ Cypress.Commands.add('createPost', (titlePost, descriptionPost) => {
 
 
     //Intercept the post request: 
-    cy.intercept('POST', `${ghostBaseUrl}api/v3/admin/posts/`).as('postIterceptor');
+    cy.intercept('POST', `${urls[version]}api/v3/admin/posts/`).as('postIterceptor');
 
     //get the title element
     cy.get('.gh-koenig-editor-pane textarea').click().type(titlePost).blur();
@@ -140,7 +141,7 @@ Cypress.Commands.add('createPost', (titlePost, descriptionPost) => {
         if (id) {
           expect(cy.url().should('include', `editor/post/${id}`));
           cy.wait(2000);
-          cy.visit(`${ghostBaseUrl}#/editor/post/${id}`);
+          cy.visit(`${urls[version]}#/editor/post/${id}`);
           cy.wait(2000);
           cy.get('.gh-publishmenu .gh-publishmenu-trigger')
             .click();
@@ -224,6 +225,24 @@ Cypress.Commands.add('deletePost', (titlePost) => {
     cy.get('.fullscreen-modal .gh-btn.gh-btn-red').click();
   });
 });
+
+Cypress.Commands.add('createTag', (titleTag, descriptionTag , version) => {
+  cy.fixture('config').then(config => {
+    const { urls } = config;
+    cy.visit(`${urls[version]}`);
+    const tagPage = new TagPage();
+    cy.get('a[href="#/tags/"]').click();
+    cy.wait(2000);
+    tagPage.getNewTagButton().click();
+    cy.get('#tag-name').click({force: true}).type(titleTag);
+    cy.wait(2000);
+    cy.get('#tag-description').click({force: true}).type(descriptionTag);
+    cy.wait(2000);    
+    cy.get('button.gh-btn.gh-btn-blue.gh-btn-icon.ember-view').click();
+    cy.wait(2000);
+  });
+});
+
 
 //
 //
