@@ -14,6 +14,11 @@ class LayoutPage {
     return cy.get('.gh-notifications.ember-view');
   }
 
+
+  getStatusHeader() {
+    return cy.get('.gh-editor-header');
+  }
+
 }
 
 export default LayoutPage;

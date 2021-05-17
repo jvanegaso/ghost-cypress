@@ -15,7 +15,7 @@ describe('Tags Management', () => {
     it(`Should create a tag  __v${version}`, () => {
       cy.login(null, null, version, true);
       cy.wait(2000);
-      // Given a wrong user and password
+      // Given a tag name and description
       const tagName = 'Tag number' ;
       const descriptionTag = 'Tag description';
       const lowerTagName = tagName.toLowerCase();
