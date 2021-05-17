@@ -32,6 +32,17 @@ module.exports = (on, config) => {
       const fileName = path.substring(fileNameIndex + 1);
 
       const fileParts = fileName.split('__v');
+
+      console.log(`
+      ***************************************
+        \n
+        path: \n\t${path}, \n
+        fileName: \n\t${fileName}, \n
+        fileParts \n\t${fileParts} \n
+        \n
+      
+      ***************************************
+      `)
       const appVersion = fileParts[1].replace('.png', '').replace(/\(.*\)/g, '').trim();
       const stepInfo = fileParts[0].split('-');
 
