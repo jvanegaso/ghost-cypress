@@ -16,8 +16,11 @@ Modificar el archivo `config.js` que se encuentra en `cypress\fixtures\config.js
 }
 ```
 
+donde en el objeto urls, se agregan las dos direcciones con puertos de las instancias de ghost en sus versiones 3.3.0 y 3.42.5.
+
 ## Pasos para ejecutar:
 
+- Borrar la carpeta node_modules
 - Instalar dependencias con `npm install`
 - En una máquina con SO Windows
 - ejecutar utilizando el comando `npm run test-vrt3`
