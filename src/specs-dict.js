@@ -48,4 +48,14 @@ module.exports = {
   st224: 'When the user tries to change the password',
   st225: 'Then the application displays an error message: Your new passwords do not match',
 
+  f3: 'Post Management ',
+  s31: 'Deberia publicar el post de manera correcta',
+  st311: 'When a user try to create a post ',
+  st312: 'Then the application display a message that the post was published.',
+  st313 : 'Make logout',
+
+  f4: 'Tags Management',
+  s41: 'Should create a tag',
+  st411 : 'When a user tries to create tag',
+  st412 : 'Then the application displays a tags page',
 };

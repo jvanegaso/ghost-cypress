@@ -7,8 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "auth-spec": "cypress run --headless --spec \"cypress/integration/ghost/user-management/authentication-spec.js\"",
     "pwd-spec": "cypress run --headless --spec \"cypress/integration/ghost/user-management/password-manage-spec.js\"",
+    "post-spec": "cypress run --headless --spec \"cypress/integration/ghost/post-management/post-manage-spec.js\"",
+    "tag-spec": "cypress run --headless --spec \"cypress/integration/ghost/tags/tags-manage-spec.js\"",
     "test-vrt": "node ./src/setup-vrt.js && npx cypress open && node ./src/export-report.js",
-    "test-vrt1": "node ./src/setup-vrt.js && npm run auth-spec && npm run pwd-spec && node ./src/export-report.js"
+    "test-vrt1": "node ./src/setup-vrt.js && npm run auth-spec && npm run pwd-spec && node ./src/export-report.js",
+    "test-vrt2": "node ./src/setup-vrt.js && npm run post-spec && node ./src/export-report.js",
+    "test-vrt3": "node ./src/setup-vrt.js && npm run tag-spec && node ./src/export-report.js"
   },
   "author": "",
   "license": "ISC",

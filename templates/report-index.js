@@ -56,19 +56,21 @@
   function renderStep(step) {
     const wrapper = $('<div class="pl-2">');
     const comparsion = step.comparison;
-    wrapper.append(`<p>Step: <b>${step.name}</b></p>`);
+    wrapper.append(`<p>Step: <b>${step.name} :: Has Comparison ${step.hasComparison}</b></p>`);
 
-    const v1Img = cutPath(step.versions[0].img);
-    wrapper.append(renderImage(v1Img, 'Version 3.3.0'));
-
-    const v2Img = cutPath(step.versions[1].img);
-    wrapper.append(renderImage(v2Img, 'Version 3.45.2'));
-
-    const comparisonUrl = cutPath(step.comparisonImage);
-    wrapper.append(renderImage(comparisonUrl, 'Diff'));
-
-    wrapper.append(renderComparisonTable(step));
-
+    if (step.hasComparison) {
+      const v1Img = cutPath(step.versions[0].img);
+      wrapper.append(renderImage(v1Img, 'Version 3.3.0'));
+  
+      const v2Img = cutPath(step.versions[1].img);
+      wrapper.append(renderImage(v2Img, 'Version 3.45.2'));
+  
+      const comparisonUrl = cutPath(step.comparisonImage);
+      wrapper.append(renderImage(comparisonUrl, 'Diff'));
+  
+      wrapper.append(renderComparisonTable(step));
+    }
+    
     wrapper.append(`<hr/>`);
     return wrapper;
   }
