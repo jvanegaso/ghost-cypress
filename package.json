@@ -20,5 +20,9 @@
     "cypress": "7.3.0",
     "resemblejs": "^3.2.5",
     "uuid": "^8.3.2"
+  },
+  "dependencies": {
+    "faker": "^5.5.3",
+    "object-path": "^0.11.5"
   }
 }

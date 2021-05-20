@@ -1,31 +1,24 @@
-class LoginPage {
-  constructor() {
-    this.txtUser = 'input[name="identification"]';
-    this.txtPassword = 'input[name="password"]';
-    this.btnLogin = 'button.login';
-    this.mainError = 'p.main-error';
-    this.btnForgot = '.forgotten-link';
-  }
+const loginPage = {
 
   getUserInput() {
-    return cy.get(this.txtUser);
-  }
+    return cy.get('input[name="identification"]');
+  },
 
   getPasswordInput() {
-    return cy.get(this.txtPassword);
-  }
+    return cy.get('input[name="password"]');
+  },
   
   getLoginButton() {
-    return cy.get(this.btnLogin);
-  }
+    return cy.get('button.login');
+  },
 
   getErrorMsg() {
-    return cy.get(this.mainError);
-  }
+    return cy.get('p.main-error');
+  },
   
   getForgotButton() {
-    return cy.get(this.btnForgot);
+    return cy.get('.forgotten-link');
   }
 }
 
-export default LoginPage;
+export default loginPage;
