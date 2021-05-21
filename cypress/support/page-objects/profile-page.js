@@ -1,45 +1,56 @@
-class ProfilePage {
-  constructor() {
-    this.txtPassOld = 'input#user-password-old';
-    this.responseOldPass = 'input#user-password-old + p.response';
-
-    this.txtPassNew = 'input#user-password-new';
-    this.responseNewPass = 'input#user-password-new + p.response';
-    
-    this.txtPassNewVerification = 'input#user-new-password-verification';
-    this.responseNewPassVerif = 'input#user-new-password-verification + p.response';
-
-    this.btnChangePassword = 'button.button-change-password';
-  }
+const profilePage = {
 
   getPassOld() {
-    return cy.get(this.txtPassOld);
-  }
-  
+    return cy.get('input#user-password-old');
+  },
+
   getPassNew() {
-    return cy.get(this.txtPassNew);
-  }
-  
+    return cy.get('input#user-password-new');
+  },
+
   getPassNewVerification() {
-    return cy.get(this.txtPassNewVerification);
-  }
-  
+    return cy.get('input#user-new-password-verification');
+  },
+
   getChangePasswordBtn() {
-    return cy.get(this.btnChangePassword);
-  }
+    return cy.get('button.button-change-password');
+  },
 
   getOldPassResponse() {
-    return cy.get(this.responseOldPass);
-  }
-  
+    return cy.get('input#user-password-old + p.response');
+  },
+
   getNewPassResponse() {
-    return cy.get(this.responseNewPass);
-  }
-  
+    return cy.get('input#user-password-new + p.response');
+  },
+
   getNewPassVerficationResponse() {
-    return cy.get(this.responseNewPassVerif);
+    return cy.get('input#user-new-password-verification + p.response');
+  },
+
+  getFullNameInput() {
+    return cy.get('input#user-name');
+  },
+
+  getFullNameResponse() {
+    return cy.get('input#user-name + p.response');
+  },
+
+  getSlugInput() {
+    return cy.get('input#user-slug');
+  },
+
+  getEmailInput() {
+    return cy.get('input#user-email');
+  },
+
+  getEmailResponse() {
+    return cy.get('input#user-email + p.response');
+  },
+
+  getSaveBtn() {
+    return cy.get('header.gh-canvas-header section.view-actions button.gh-btn');
   }
-  
 }
 
-export default ProfilePage;
+export default profilePage;

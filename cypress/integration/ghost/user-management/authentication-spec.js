@@ -1,65 +1,9 @@
 /// <reference types="cypress" />
-import * as faker from 'faker';
-import objectPath from 'object-path';
-
 import loginPage from "../../../support/page-objects/login-page";
 import scenarios from './auth-scenarios';
+import { resolveInput, getScenarios } from '../../../../src/dynamic-data-helper';
 
 const version = '3.42.5';
-let currentInput = null;
-
-function fillInput(input, value, resolve) {
-  const isRawString = typeof value === 'string';
-  if (isRawString) {
-    if (!value && value.length === 0) {
-      return resolve(input);
-    }
-    input.type(value);
-    return resolve(input);
-  }
-}
-
-function resolveInput(input, inputOpts, scenarioType, config) {
-  return new Promise((resolve, reject) => {
-    currentInput = input;
-    input.scrollIntoView().focus().clear();
-
-    if (scenarioType === 'apriori') {
-      return fillInput(input, inputOpts, resolve);
-    }
-
-    if (scenarioType === 'mixed') {
-      const { type, value } = inputOpts;
-      if (type === 'apriori') {
-        return fillInput(input, value, resolve);
-      }
-
-      if (type === 'dynamic') {
-        const { command = null, args = null } = inputOpts;
-        let dynamicValue = null;
-        const fakerFunc = objectPath.get(faker, command);
-        if (args) {
-          dynamicValue = fakerFunc([...args]);
-        } else {
-          dynamicValue = fakerFunc();
-        }
-        return fillInput(input, dynamicValue, resolve);
-      }
-      
-      if (type === 'fixture') {
-        return fillInput(input, config[inputOpts.prop], resolve);
-      }
-    }
-  });
-}
-
-function getScenarios() {
-  const onlyIndex = scenarios.findIndex(sc => sc.only === true);
-  if (onlyIndex > -1) {
-    return [scenarios[onlyIndex]];
-  }
-  return scenarios;
-};
 
 describe('Authentication Management', () => {
 
@@ -71,7 +15,7 @@ describe('Authentication Management', () => {
     });
   });
 
-  getScenarios().forEach((scenario) => {
+  getScenarios(scenarios).forEach((scenario) => {
 
     it(scenario.description, () => {
       const { type } = scenario;
@@ -79,18 +23,18 @@ describe('Authentication Management', () => {
       const { buttonText, errorMsg } = scenario.oracles;
       const { getUserInput, getPasswordInput } = loginPage;
 
-      cy.fixture('config').then(config => {  
-        
+      cy.fixture('config').then(config => {
+
         resolveInput(getUserInput(), user, type, config);
         resolveInput(getPasswordInput(), password, type, config);
-  
+
         loginPage.getLoginButton().click();
-  
+
         cy.wait(1000);
-  
+
         loginPage.getErrorMsg()
           .should('contain.text', errorMsg);
-  
+
         loginPage.getLoginButton()
           .should('contain.text', buttonText);
       });

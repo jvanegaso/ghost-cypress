@@ -10,7 +10,7 @@
 //
 //
 
-import LoginPage from "./page-objects/login-page";
+import loginPage from "./page-objects/login-page";
 import LayoutPage from "./page-objects/layout-page";
 import PostsPage from "./page-objects/posts-page";
 import PostPage from "./page-objects/post-page";
@@ -21,8 +21,6 @@ Cypress.Commands.add('login', (email, password, version, useConfig = false) => {
   cy.fixture('config').then(config => {
     const { urls, usuario, clave } = config;
     cy.visit(`${urls[version]}#/signin`);
-
-    const loginPage = new LoginPage();
     if (!useConfig) {
       email && loginPage.getUserInput().type(email);
       password && loginPage.getPasswordInput().type(password);

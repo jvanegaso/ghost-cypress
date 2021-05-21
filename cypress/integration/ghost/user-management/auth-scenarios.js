@@ -53,7 +53,7 @@ export default [
     fields: {
       user: {
         type: 'dynamic',
-        command: 'lorem.sentence',
+        command: 'datatype.string',
         args: [192]
       },
       password: {
@@ -76,7 +76,7 @@ export default [
       },
       password: {
         type: 'dynamic',
-        command: 'lorem.sentence',
+        command: 'datatype.string',
         args: [62]
       }
     },
