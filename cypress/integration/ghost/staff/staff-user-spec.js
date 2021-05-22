@@ -9,7 +9,6 @@ describe('Staff User', () => {
   before('Setup', () => {
     loginPage = new LoginPage();
     cy.login(null, null, true);
-
   });
 
   it('Staff user account change name null', () => {
