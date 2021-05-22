@@ -1,10 +1,4 @@
 {
-<<<<<<< HEAD
-  "ghostBaseUrl": "http://localhost:2368/ghost/",
-  "usuario": "pruebas@pruebas.com",
-  "clave": "pruebaspruebas",
-  "nuevaClave": "LtWmSuuj9MhPTU1"
-=======
   "urls": {
     "3.3.0": "http://localhost:2368/ghost/",
     "3.42.5": "http://localhost:2369/ghost/"
@@ -12,5 +6,5 @@
   "usuario": "sebastian44van@gmail.com",
   "clave": "LtWmSuuj9MhPTUW",
   "nuevaClave": "L28423972s*"
->>>>>>> fb251b98247b15dbfea4295c10847ffa236b18fc
+
 }
