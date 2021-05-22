@@ -24,6 +24,8 @@ describe('Delete page', () => {
         
         // Then select delete buttom option 
         cy.get('.modal-footer').contains('Delete').click();
+
+        cy.contains('Pages').click({force:true});
              
     });
 
