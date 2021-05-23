@@ -12,8 +12,12 @@ describe('Create and Publish page', () => {
     cy.goToPagesPage()
   });
 
-  beforeEach(()=>{
+  beforeEach(() => {
     Cypress.Cookies.preserveOnce('ghost-admin-api-session');
+  });
+
+  after(() => {
+    cy.logout(version);
   });
 
   getScenarios(scenarios).forEach((scenario) => {
@@ -26,16 +30,18 @@ describe('Create and Publish page', () => {
 
       cy.fixture('config').then(config => {
 
-        publishPage.getButtomCreatePage().click();
+        publishPage.getButtomCreatePage().scrollIntoView().focus().click();
         cy.wait(1000);
 
         resolveInput(getPageTittleInput(), pageTitle, type, config);
-        //getPageTittleInput.blur();
 
         publishPage.getDescriptionTittle().click();
+        cy.wait(1000);
 
-        publishPage.getPublishSelector().click();
-        publishPage.getPublishButton().click();
+        publishPage.getPublishSelector().scrollIntoView().focus().click({ force: true });
+        cy.wait(1000);
+
+        publishPage.getPublishButton().scrollIntoView().focus().click({ force: true });
         cy.wait(2000);
 
         publishPage.getPublishToastButton().should('contain.text', toastMsg);
