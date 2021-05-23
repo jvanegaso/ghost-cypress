@@ -1,11 +1,9 @@
 
-import LoginPage from "../../../support/page-objects/login-page";
 import PostsPage from "../../../support/page-objects/posts-page";
 import PostPage from "../../../support/page-objects/post-page";
 import LayoutPage from "../../../support/page-objects/layout-page";
 
 
-let loginPage = null;
 let postsPage = null;
 let postPage = null;
 let layoutPage = null;
@@ -13,7 +11,6 @@ describe('Gestion de post', () => {
   ['3.3.0', '3.42.5'].forEach((version) => {
 
     before('Setup', () => {
-      loginPage = new LoginPage();
       postsPage = new PostsPage();
       postPage = new PostPage();
       layoutPage = new LayoutPage();
