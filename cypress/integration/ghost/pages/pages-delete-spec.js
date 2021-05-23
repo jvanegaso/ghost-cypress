@@ -1,32 +1,43 @@
 /// <reference types="cypress" />
+import deletePage from "../../../support/page-objects/delete-page";
+import scenarios from './delete-escenarios';
+import { resolveInput, getScenarios } from '../../../../src/dynamic-data-helper';
 
-import DeletePage from "../../../support/page-objects/delete-page";
-
-let deletePage = null;
+const version = '3.42.5';
 
 describe('Delete page', () => {
 
     before('Setup', () => {
-        deletePage = new DeletePage();
+        cy.login(null, null, version, true);
+        cy.goToPagesPage()
     });
 
-    it('Should delete a page! ', () => {
-
-        // Given a user autenticated 
-        cy.login(null, null, true);
-        cy.visit('http://localhost:2368/ghost/#/pages');
-       
-        deletePage.getMiniPageTittle().click();
-
-        // When selected option settings buttom
-        deletePage.getPostSettings().click();
-        deletePage.getDeleteButtomSettings().click();   
-        
-        // Then select delete buttom option 
-        cy.get('.modal-footer').contains('Delete').click();
-
-        cy.contains('Pages').click({force:true});
-             
+    beforeEach(() => {
+        Cypress.Cookies.preserveOnce('ghost-admin-api-session');
     });
 
+    getScenarios(scenarios).forEach((scenario) => {
+
+        it(scenario.description, () => {
+            const { type } = scenario;
+            const { toastMsg } = scenario.oracles;
+            const { getMiniPageTittle } = deletePage;
+
+            cy.fixture('config').then(config => {
+
+                deletePage.getMiniPageTittle().scrollIntoView().focus().click({ force: true });
+
+                deletePage.getPostSettings().scrollIntoView().focus().click({ force: true });
+                deletePage.getDeleteButtomSettings().scrollIntoView().focus().click({ force: true });
+
+                cy.get('.modal-footer').contains('Delete').scrollIntoView().focus().click({ force: true });
+
+                const { urls } = config;
+                cy.visit(`${urls[version]}#/pages`);
+
+            });
+        });
+
+    });
 });
+

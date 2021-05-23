@@ -1,10 +1,17 @@
 {
   "urls": {
     "3.3.0": "http://localhost:2368/ghost/",
+<<<<<<< HEAD
     "3.42.5": "http://localhost:2370/ghost/"
   },
   "usuario": "w.martinezq@uniandes.edu.co",
   "clave": "AbcDefgHi#2021",
+=======
+    "3.42.5": "http://localhost:2368/ghost/"
+  },
+  "usuario": "pruebas@pruebas.com",
+  "clave": "pruebaspruebas",
+>>>>>>> 7b77f43223d8578c75c3772df49423ee407426fe
   "nuevaClave": "L28423972s*"
 
 }

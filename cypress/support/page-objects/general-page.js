@@ -1,23 +1,23 @@
-const publishPage = {
+const generalPage = {
 
     getPageMenu() {
-        return cy.contains('Pages');
+        return cy.contains('General');
     },
 
-    getButtomCreatePage() {
-        return cy.get('.gh-canvas-header .ember-view.gh-btn.gh-btn-green');    
+    getButtomExpandSocial() {
+        return cy.get('.gh-setting-first.gh-setting-last .gh-btn');    
     },
 
-    getPageTittleInput() {
-        return cy.get('.gh-editor-title.ember-text-area.gh-input.ember-view');
+    getPageFacebookInput() {
+        return cy.get('.ember-text-field.gh-input.ember-view').eq(0);
     },
 
-    getDescriptionTittle() {
-        return cy.get('article.koenig-editor div[contenteditable="true"]');
+    getPageTwitterInput() {
+        return cy.get('.ember-text-field.gh-input.ember-view').eq(1);
     },
 
-    getPanelPage() {
-        return cy.get('.gh-koenig-editor-pane.flex.flex-column.mih-100');
+    getButtomSaveSettings() {
+        return cy.get('.gh-btn.gh-btn-blue.gh-btn-icon.ember-view');
     },
 
     getMiniPageTittle() {
@@ -38,4 +38,4 @@ const publishPage = {
     
 }
 
-export default publishPage;
+export default generalPage;

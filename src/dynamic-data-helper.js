@@ -1,6 +1,12 @@
 import * as faker from 'faker';
 import objectPath from 'object-path';
 
+import naughtyStrings from './naughty-strings.json';
+
+const pools = {
+  naugthy: naughtyStrings
+};
+
 function fillInput(input, value, resolve) {
   const isRawString = typeof value === 'string';
   if (isRawString) {
@@ -31,15 +37,25 @@ function resolveInput(input, inputOpts, scenarioType, config) {
         let dynamicValue = null;
         const fakerFunc = objectPath.get(faker, command);
         if (args) {
-          dynamicValue = fakerFunc([...args]);
+          dynamicValue = fakerFunc(...args);
         } else {
           dynamicValue = fakerFunc();
         }
+        inputOpts['value'] = dynamicValue;
         return fillInput(input, dynamicValue, resolve);
       }
 
       if (type === 'fixture') {
         return fillInput(input, config[inputOpts.prop], resolve);
+      }
+      
+      if (type === 'random-pool') {
+        const { origin, prop } = inputOpts;
+        const data = pools[origin];
+        const randomIndex = Math.floor(Math.random() * (data.length - 0 + 1) + 0);
+        const randomValue = data[randomIndex][prop];
+        inputOpts.value = randomValue;
+        return fillInput(input, randomValue, resolve);
       }
     }
   });

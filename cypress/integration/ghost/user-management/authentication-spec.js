@@ -41,6 +41,44 @@ describe('Authentication Management', () => {
     });
   });
 
+  it('Should login with right user and password', () => {
+    // Given a user and password coming from the configuration file (review the login command)
+
+    // When The user tries to login
+    cy.login(null, null, version, true);
+
+    // Then the application redirects the user to /site page
+    cy.url().should('include', '/site');
+
+    // Teardown
+    cy.logout(version);
+  });
+
+  it('Should block the user to go to /site page if session is no longer active', () => {
+    // Given a user who is logged in
+    cy.login(null, null, version, true);
+    cy.wait(2000);
+
+    // When the user logs out
+    cy.logout(version);
+    cy.wait(2000);
+
+    // Then the current page should be /signin
+    cy.url().should('include', '#/signin');
+    cy.wait(2000);
+
+    // AND whether the user tries to access again to the site page
+    cy.fixture('config').then(config => {
+      const { urls } = config;
+      // cy.visit(`${ghostBaseUrl}#/site`);
+      cy.visit(`${urls[version]}#/site`);
+
+      // Then the app must be /signin as a redirection of the system
+      cy.url().should('include', '#/signin');
+    });
+
+  });
+
   // it(`Should show an error message whether user and password are wrong __v${version}`, () => {
   //   // Given a wrong user and password
   //   const wrongUser = 'dsadsadsa';
