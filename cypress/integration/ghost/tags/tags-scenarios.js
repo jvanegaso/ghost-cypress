@@ -15,6 +15,20 @@ export default [
     },
     {
         type: 'apriori',
+        description: 'should create a tag with spetial characters in tag name ',
+        fields: {
+          tagName: '@@@@@@@@@@.....///()&&&&&&',
+          tagColor: '',
+          tagSlug : '',
+          tagDescription : ''
+        },
+        oracles: {
+          Url : '/tag',
+          verfMsg: null
+        }
+      },
+    {
+        type: 'apriori',
         description: 'should create a tag just with name',
         fields: {
           tagName: 'Test Name new tag',
@@ -108,27 +122,86 @@ export default [
               dinamicUrl : true,
               verfMsg: null
             }
+          },{
+            //only:true,
+            type: 'mixed',
+            description: 'should create a tag just with random name and a random paragraph description',
+            fields: {
+              tagName:{
+                  type: 'random-pool',
+                  origin: 'naugthy',
+                  prop: 'naugthy'
+                },
+              tagColor: '',
+              tagSlug : '',
+              tagDescription : {
+                type: 'random-pool',
+                origin: 'naugthy',
+                prop: 'naugthy'
+              },
+            },
+            oracles: {
+              Url : '/tag',
+              verfMsg: null
+            }
+          },
+          {
+            type: 'apriori',
+            description: 'should  creat a tag with a slug constant ',
+            fields: {
+              tagName: 'testing the test slug',
+              tagColor: '',
+              tagSlug : 'test-new-slug',
+              tagDescription : ''
+            },
+            oracles: {
+              Url : 'test-new-slug',
+              verfMsg: null
+            }
+          },
+          {
+            //only:true,
+            type: 'apriori',
+            description: 'should  creat a tag with a slug numbers constant',
+            fields: {
+              tagName: 'testing the test slug numbers ',
+              tagColor: '',
+              tagSlug : '1111111112222333333',
+              tagDescription : ''
+            },
+            oracles: {
+              Url : '1111111112222333333',
+              verfMsg: null
+            }
+          },
+          {
+            //only:true,
+            type: 'apriori',
+            description: 'should  creat a tag with a slug numbers with special characters constant',
+            fields: {
+              tagName: 'testing the test slug numbers ',
+              tagColor: '',
+              tagSlug : '112233@@@###%%%445566',
+              tagDescription : ''
+            },
+            oracles: {
+              Url : '112233-445566',
+              verfMsg: null
+            }
+          },
+          {
+            //only:true,
+            type: 'apriori',
+            description: 'should  creat a tag with a tag name, tag color, tag slug and tag description',
+            fields: {
+              tagName: 'testing the test with all components',
+              tagColor: '111111',
+              tagSlug : '1234567890852',
+              tagDescription : 'Tag description element with a diferent words with @ # spetial elemnts / , &&&'
+            },
+            oracles: {
+              Url : '1234567890852',
+              verfMsg: null
+            }
           }
-          
-    // {
-    //   type: 'mixed',
-    //   only: true,
-    //   description: 'should display Password incorrect msg, and Retry text, whether user and password are naughty data',
-    //   fields: {
-    //     user: {
-    //       type: 'random-pool',
-    //       origin: 'naugthy',
-    //       prop: 'naugthy'
-    //     },
-    //     password: {
-    //       type: 'random-pool',
-    //       origin: 'naugthy',
-    //       prop: 'naugthy'
-    //     }
-    //   },
-    //   oracles: {
-    //     buttonText: 'Retry',
-    //     errorMsg: 'Please fill out the form to sign in.'
-    //   }
-    // }
   ];
