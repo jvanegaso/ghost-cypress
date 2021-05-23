@@ -30,7 +30,7 @@ describe('Tag Management', () => {
       cy.fixture('config').then(config => {
         resolveInput(getNameInput(), tagName, type, config);
         resolveInput(getColorInput(), tagColor, type, config);
-       // resolveInput(getSlugInput(), tagSlug, type, config);
+        resolveInput(getSlugInput(), tagSlug, type, config);
         resolveInput(getDescriptionInput(), tagDescription, type, config);
         
 

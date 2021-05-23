@@ -13,7 +13,7 @@ const tagPageV2 = {
     },  
 
     getSlugInput(){
-        return cy.get('input#tag-slug"');
+        return cy.get('input#tag-slug');
     },  
 
     getDescriptionInput(){
