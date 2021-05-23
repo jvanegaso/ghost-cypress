@@ -63,6 +63,14 @@ Cypress.Commands.add('goToGeneralPage', () => {
   cy.wait(1000);
 });
 
+Cypress.Commands.add('goToTagPage', (version) => {
+  cy.fixture('config').then(config => {
+    const { urls } = config;
+    cy.wait(1000);
+    cy.visit(`${urls[version]}#/tags/new` );
+  });
+});
+
 // Util
 Cypress.Commands.add('shouldHaveTrimmedText',
   { prevSubject: true },
