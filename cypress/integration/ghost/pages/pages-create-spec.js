@@ -10,7 +10,6 @@ describe('Create and Publish page', () => {
   before('Setup', () => {
     cy.login(null, null, version, true);
     cy.goToPagesPage()
-    //publishPage.getButtomCreatePage().click();
   });
 
   beforeEach(()=>{
