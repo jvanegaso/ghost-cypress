@@ -3,6 +3,8 @@
 import UnPublishPage from "../../../support/page-objects/unpublish-page";
 import PublishPage from "../../../support/page-objects/publish-page";
 
+const version = '3.42.5';
+
 let unPublishPage = null;
 let publishPage = null; 
 

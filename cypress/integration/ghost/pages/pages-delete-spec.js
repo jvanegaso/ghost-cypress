@@ -2,6 +2,8 @@
 
 import DeletePage from "../../../support/page-objects/delete-page";
 
+const version = '3.42.5';
+
 let deletePage = null;
 
 describe('Delete page', () => {
