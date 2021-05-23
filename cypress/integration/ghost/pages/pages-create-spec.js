@@ -44,6 +44,7 @@ describe('Create and Publish page', () => {
         const { urls } = config;
         cy.visit(`${urls[version]}#/pages`);
 
+
       });
     });
 
