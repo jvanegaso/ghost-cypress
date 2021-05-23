@@ -11,11 +11,21 @@
     "update-pwd-spec": "cypress run --headless --spec \"cypress/integration/ghost/user-management/update-password-spec.js\"",
     "post-spec": "cypress run --headless --spec \"cypress/integration/ghost/post-management/post-manage-spec.js\"",
     "tag-spec": "cypress run --headless --spec \"cypress/integration/ghost/tags/tags-manage-spec.js\"",
+    "tags-spec": "cypress run --headless --spec \"cypress/integration/ghost/tags/tags-manage-v2-spec.js\"",
+    
+    "gral-spec": "cypress run --headless --spec \"cypress/integration/ghost/general/general-social-spec.js\"",
+    "page-unp-spec": "cypress run --headless --spec \"cypress/integration/ghost/pages/pages-unpublish-spec.js\"",
+    "page-del-spec": "cypress run --headless --spec \"cypress/integration/ghost/pages/pages-delete-spec.js\"",
+    "page-create-spec": "cypress run --headless --spec \"cypress/integration/ghost/pages/pages-create-spec.js\"",
+
     "test-vrt": "node ./src/setup-vrt.js && npx cypress open && node ./src/export-report.js",
     "test-vrt1": "node ./src/setup-vrt.js && npm run auth-spec && npm run pwd-spec && node ./src/export-report.js",
     "test-vrt2": "node ./src/setup-vrt.js && npm run post-spec && node ./src/export-report.js",
     "test-vrt3": "node ./src/setup-vrt.js && npm run auth-spec && npm run pwd-spec && npm run tag-spec && npm run post-spec && node ./src/export-report.js",
-    "test-juan": "npm run auth-spec && npm run pwd-spec && npm run bio-spec && npm run update-pwd-spec"
+    "test-juan": "npm run auth-spec && npm run pwd-spec && npm run bio-spec && npm run update-pwd-spec",
+    "test-laura": "npm run post-spec && npm run tags-spec",
+    "test-jhon": "npm run page-create-spec && npm run page-del-spec && npm run gral-spec",
+    "test-pool": "npm run test-juan && npm run test-laura && npm run test-jhon"
   },
   "author": "",
   "license": "ISC",

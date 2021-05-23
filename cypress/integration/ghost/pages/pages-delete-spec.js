@@ -25,12 +25,12 @@ describe('Delete page', () => {
 
             cy.fixture('config').then(config => {
 
-                deletePage.getMiniPageTittle().click();
+                deletePage.getMiniPageTittle().scrollIntoView().focus().click({ force: true });
 
-                deletePage.getPostSettings().click();
-                deletePage.getDeleteButtomSettings().click();
-                
-                cy.get('.modal-footer').contains('Delete').click();
+                deletePage.getPostSettings().scrollIntoView().focus().click({ force: true });
+                deletePage.getDeleteButtomSettings().scrollIntoView().focus().click({ force: true });
+
+                cy.get('.modal-footer').contains('Delete').scrollIntoView().focus().click({ force: true });
 
                 const { urls } = config;
                 cy.visit(`${urls[version]}#/pages`);
