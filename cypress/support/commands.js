@@ -16,6 +16,7 @@ import PostsPage from "./page-objects/posts-page";
 import PostPage from "./page-objects/post-page";
 import TagPage from "./page-objects/tags-page";
 import publishPage from "./page-objects/publish-page";
+import generalPage from "./page-objects/general-page";
 
 // -- This is a parent command --
 Cypress.Commands.add('login', (email, password, version, useConfig = false) => {
@@ -54,6 +55,11 @@ Cypress.Commands.add('goToProfilePage', () => {
 
 Cypress.Commands.add('goToPagesPage', () => {
   publishPage.getPageMenu().click();
+  cy.wait(1000);
+});
+
+Cypress.Commands.add('goToGeneralPage', () => {
+  generalPage.getPageMenu().click();
   cy.wait(1000);
 });
 

@@ -20,7 +20,6 @@ describe('Delete page', () => {
 
         it(scenario.description, () => {
             const { type } = scenario;
-            //const { pageTitle } = scenario.fields;
             const { toastMsg } = scenario.oracles;
             const { getMiniPageTittle } = deletePage;
 
@@ -28,13 +27,9 @@ describe('Delete page', () => {
 
                 deletePage.getMiniPageTittle().click();
 
-                //resolveInput(getMiniPageTittle(), type, config);
-
-                // When selected option settings buttom
                 deletePage.getPostSettings().click();
                 deletePage.getDeleteButtomSettings().click();
-
-                // Then select delete buttom option 
+                
                 cy.get('.modal-footer').contains('Delete').click();
 
                 const { urls } = config;
