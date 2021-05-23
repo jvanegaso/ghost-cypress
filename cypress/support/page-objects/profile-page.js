@@ -40,12 +40,32 @@ const profilePage = {
     return cy.get('input#user-slug');
   },
 
+  getSlugResult() {
+    return cy.get('input#user-slug + p');
+  },
+
+  getSlugError() {
+    return cy.get('input#user-slug ~ p.response');
+  },
+
   getEmailInput() {
     return cy.get('input#user-email');
   },
 
   getEmailResponse() {
     return cy.get('input#user-email + p.response');
+  },
+
+  getWebsiteInput() {
+    return cy.get('input#user-website');
+  },
+
+  getWebsiteResult() {
+    return cy.get('input#user-website ~ p:not(.response)');
+  },
+
+  getWebsiteError() {
+    return cy.get('input#user-website ~ p.response');
   },
 
   getSaveBtn() {

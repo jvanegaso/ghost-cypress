@@ -84,5 +84,26 @@ export default [
       buttonText: 'Retry',
       errorMsg: 'Your password is incorrect.'
     }
+  },
+  {
+    type: 'mixed',
+    only: true,
+    description: 'should display Password incorrect msg, and Retry text, whether user and password are naughty data',
+    fields: {
+      user: {
+        type: 'random-pool',
+        origin: 'naugthy',
+        prop: 'naugthy'
+      },
+      password: {
+        type: 'random-pool',
+        origin: 'naugthy',
+        prop: 'naugthy'
+      }
+    },
+    oracles: {
+      buttonText: 'Retry',
+      errorMsg: 'Please fill out the form to sign in.'
+    }
   }
 ];
