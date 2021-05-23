@@ -20,7 +20,7 @@ function fillInput(input, value, resolve) {
 
 function resolveInput(input, inputOpts, scenarioType, config) {
   return new Promise((resolve, reject) => {
- //   input.scrollIntoView().focus().clear();
+    input.scrollIntoView().focus().clear();
 
     if (scenarioType === 'apriori') {
       return fillInput(input, inputOpts, resolve);
