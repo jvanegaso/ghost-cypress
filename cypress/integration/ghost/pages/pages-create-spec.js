@@ -1,40 +1,56 @@
 /// <reference types="cypress" />
+import publishPage from "../../../support/page-objects/publish-page";
+import scenarios from './pages-scenarios';
+import { resolveInput, getScenarios } from '../../../../src/dynamic-data-helper';
 
-import PublishPage from "../../../support/page-objects/publish-page";
-
-let publishPage = null;
+const version = '3.42.5';
 
 describe('Create and Publish page', () => {
 
-    before('Setup', () => {
-        publishPage = new PublishPage();
-    });
+  before('Setup', () => {
+    cy.login(null, null, version, true);
+    cy.goToPagesPage()
+  });
 
-    it('Should create a page and publish it! ', () => {
+  beforeEach(()=>{
+    Cypress.Cookies.preserveOnce('ghost-admin-api-session');
+  });
 
-        // Given a user autenticated 
-        cy.login(null, null, true);
-        cy.visit('http://localhost:2368/ghost/#/pages');
+  getScenarios(scenarios).forEach((scenario) => {
 
-        // When a user creates a page 
-        //publishPage.getPageMenu().click();
-        //cy.get('.gh-nav-list.gh-nav-manage a[href^="#/Pages"]').click();
-        publishPage.getPageTittle().type('Página de Prueba de Cypress');
+    it(scenario.description, () => {
+      const { type } = scenario;
+      const { pageTitle } = scenario.fields;
+      const { toastMsg } = scenario.oracles;
+      const { getPageTittleInput } = publishPage;
 
-        // And selected option page
-        publishPage.getPanelPage().click();
-        cy.visit('http://localhost:2368/ghost/#/pages');
+      cy.fixture('config').then(config => {
 
+        publishPage.getButtomCreatePage().click();
+        cy.wait(1000);
 
-        publishPage.getMiniPageTittle().click();
+        resolveInput(getPageTittleInput(), pageTitle, type, config);
+        //getPageTittleInput.blur();
 
-        // And selected publish selector
+        publishPage.getDescriptionTittle().click();
+
         publishPage.getPublishSelector().click();
         publishPage.getPublishButton().click();
+        cy.wait(2000);
 
-        //Then publish and create page        
-        publishPage.getPublishToastButton().click(); 
+        publishPage.getPublishToastButton().should('contain.text', toastMsg);
+        cy.wait(1000);
+
+        const { urls } = config;
+        cy.visit(`${urls[version]}#/pages`);
+
+
+      });
     });
 
-
+  });
 });
+
+
+
+
