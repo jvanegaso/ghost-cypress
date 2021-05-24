@@ -17,6 +17,7 @@
     "page-unp-spec": "cypress run --headless --spec \"cypress/integration/ghost/pages/pages-unpublish-spec.js\"",
     "page-del-spec": "cypress run --headless --spec \"cypress/integration/ghost/pages/pages-delete-spec.js\"",
     "page-create-spec": "cypress run --headless --spec \"cypress/integration/ghost/pages/pages-create-spec.js\"",
+    "gral-metadata-spec": "cypress run --headless --spec \"cypress/integration/ghost/general/general-metadata-spec.js\"",
     
     "lab-spec": "cypress run --headless --spec \"cypress/integration/ghost/staff/lab-access-spec.js\"",
     "lab-stripe-spec": "cypress run --headless --spec \"cypress/integration/ghost/staff/lab-stripe-spec.js\"",
@@ -32,9 +33,11 @@
     "test-vrt3": "node ./src/setup-vrt.js && npm run auth-spec && npm run pwd-spec && npm run tag-spec && npm run post-spec && node ./src/export-report.js",
     "test-juan": "npm run auth-spec && npm run pwd-spec && npm run bio-spec && npm run update-pwd-spec",
     "test-laura": "npm run post-spec && npm run tags-spec",
-    "test-jhon": "npm run page-create-spec && npm run page-del-spec && npm run gral-spec",
+    "test-jhon": "npm run page-create-spec && npm run page-del-spec && npm run gral-spec && npm run gral-metadata-spec",
+    "test-wil": "npm run lab-spec && npm run lab-stripe-spec",
     "test-wilmar": "npm run header-injection-spec && npm run invite-spec && npm run lab-stripe-spec && npm run lab-access-spec && npm run lab-email-spec && npm run lab-suscription-spec && npm run staff-invitation-spec && npm run staff-user-spec",
     "test-pool": "npm run test-juan && npm run test-laura && npm run test-jhon && npm run test-wilmar"
+
   },
   "author": "",
   "license": "ISC",

@@ -40,7 +40,7 @@ export default [
         description: 'Url facebook it randonm, do not save',
         fields: {
             urlFacebook: {
-                type: 'dinamic',
+                type: 'dynamic',
                 command: 'internet.url'
             },
             urlTwitter: {
