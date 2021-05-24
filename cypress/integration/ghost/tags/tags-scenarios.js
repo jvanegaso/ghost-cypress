@@ -122,8 +122,9 @@ export default [
               dinamicUrl : true,
               verfMsg: null
             }
-          },{
-            only:true,
+          },
+          {
+        //    only:true,
             type: 'mixed',
             description: 'should create a tag just with random name and a random paragraph description',
             fields: {
@@ -255,6 +256,6 @@ export default [
               Url : '/new',
               verfMsg: "Tag names can't start with commas"
             }
-          },
+          }
         //Tag names can't start with commas
   ];
