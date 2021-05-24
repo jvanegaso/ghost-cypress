@@ -23,12 +23,12 @@ describe('Tags Management', () => {
       // When a user tries to create tag
       cy.createTag(tagName,descriptionTag, version);
       cy.wait(2000);
-      cy.stepScreenshot('f4-s41-st411', version);
+      // cy.stepScreenshot('f4-s41-st411', version);
       // Then the application displays a tags page"
       cy.wait(1000);
       cy.url().should('include',newUrl);
       cy.wait(2000);
-      cy.stepScreenshot('f4-s41-st412', version);
+      // cy.stepScreenshot('f4-s41-st412', version);
       //cy.logout();
       //cy.wait(2000);
     });

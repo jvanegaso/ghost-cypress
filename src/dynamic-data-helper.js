@@ -20,7 +20,7 @@ function fillInput(input, value, resolve) {
 
 function resolveInput(input, inputOpts, scenarioType, config) {
   return new Promise((resolve, reject) => {
- //   input.scrollIntoView().focus().clear();
+    input.scrollIntoView().focus().clear();
 
     if (scenarioType === 'apriori') {
       return fillInput(input, inputOpts, resolve);
@@ -48,7 +48,7 @@ function resolveInput(input, inputOpts, scenarioType, config) {
       if (type === 'fixture') {
         return fillInput(input, config[inputOpts.prop], resolve);
       }
-      
+
       if (type === 'random-pool') {
         const { origin, prop } = inputOpts;
         const data = pools[origin];

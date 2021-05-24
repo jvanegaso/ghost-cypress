@@ -14,6 +14,7 @@ const version = "3.42.5";
 describe("Injection", () => {
   before("Setup", () => {
     cy.login(null, null, version, true);
+    cy.wait(2000);
     cy.contains("Code injection").click({ force: true });
     cy.wait(1000);
   });
@@ -24,8 +25,7 @@ describe("Injection", () => {
       const { type } = scenario;
       const { header } = scenario.fields;
       const { headerMsg } = scenario.oracles;
-      const { getHeaderInjection, getInjectionSaveBtn } =
-        escenariosPage; 
+      const { getHeaderInjection, getInjectionSaveBtn } = escenariosPage;
       cy.fixture("config").then((config) => {
         resolveInput(getHeaderInjection(), header, type, config);
 
@@ -41,14 +41,4 @@ describe("Injection", () => {
     });
   });
 
-
-
-
-
-
-
-
-
-
-  
 });
