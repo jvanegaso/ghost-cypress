@@ -71,6 +71,19 @@ Cypress.Commands.add('goToTagPage', (version) => {
   });
 });
 
+Cypress.Commands.add('goToPostPage', (version) => {
+  cy.fixture('config').then(config => {
+    const { urls } = config;
+    cy.wait(1000);
+    cy.visit(`${urls[version]}#/posts` );
+    cy.wait(1000);
+    cy.get('.view-actions a[href="#/editor/post/"]').click();
+    cy.wait(1000);
+    //cy.intercept('POST', `${urls[version]}api/v3/admin/posts/`).as('postIterceptor');
+    //cy.wait(1000);
+  });
+});
+
 // Util
 Cypress.Commands.add('shouldHaveTrimmedText',
   { prevSubject: true },
