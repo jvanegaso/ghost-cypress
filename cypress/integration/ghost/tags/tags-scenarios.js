@@ -123,7 +123,7 @@ export default [
               verfMsg: null
             }
           },{
-            //only:true,
+            only:true,
             type: 'mixed',
             description: 'should create a tag just with random name and a random paragraph description',
             fields: {
@@ -203,5 +203,58 @@ export default [
               Url : '1234567890852',
               verfMsg: null
             }
-          }
+          },
+          {
+            //only:true,
+            type: 'apriori',
+            description: 'should not creat a tag with a tag name with sql sentence - but this is correct. ',
+            fields: {
+              tagName: 'DROP TABLE tags --',
+              tagColor: '111111',
+              tagSlug : '',
+              tagDescription : 'Tag description element with a diferent words with @ # spetial elemnts / , &&&'
+            },
+            oracles: {
+              Url : '/drop-table-tags',
+              verfMsg: null
+            }
+          },
+        //   {
+        //     only:true,
+        //     type: 'mixed',
+        //     description: 'should create a tag just with random name and a random paragraph description',
+        //     fields: {
+        //       tagName:{
+        //           type: 'dynamic',
+        //           command: 'fake.password',
+        //           args: [191]
+        //         },
+        //       tagColor: '',
+        //       tagSlug : '',
+        //       tagDescription : {
+        //         type: 'dynamic',
+        //         command: 'lorem.paragraph',
+        //         args: [3]
+        //       }
+        //     },
+        //     oracles: {
+        //         dinamicUrl : true,
+        //         verfMsg: null
+        //     }
+        // },
+        {
+            type: 'apriori',
+            description: 'should create a tag just with name',
+            fields: {
+              tagName: ',Test Name new tag',
+              tagColor: '',
+              tagSlug : '',
+              tagDescription : ''
+            },
+            oracles: {
+              Url : '/new',
+              verfMsg: "Tag names can't start with commas"
+            }
+          },
+        //Tag names can't start with commas
   ];
