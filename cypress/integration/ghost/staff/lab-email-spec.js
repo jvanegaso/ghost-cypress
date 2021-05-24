@@ -7,7 +7,7 @@ import emailescenarios from "./lab-email-scenarios";
 import {
   resolveInput,
   getScenarios,
-} from "../../../../src/dynamic-data-helper";
+} from "../../../../src/dymanic-data-suscription-helper";
 
 const version = "3.42.5";
 

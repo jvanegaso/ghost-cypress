@@ -10,20 +10,4 @@ export default [
       }
     },
 
-    {
-      type: 'mixed',
-      description: 'should show message member monthly price faker email',
-      fields: {
-        monthly: {
-          type: 'dynamic',
-          command: 'internet.email'
-        }
-      },
-      oracles: {
-        monthlyMsg: 'Subscription amount must be at least $1.00'
-
-      }
-    },
-
-
   ];
