@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
-import invitePage from "../../../support/page-objects/invite-page";
+import escenariosPage from "../../../support/page-objects/escenarios-page";
 import scenarios from './invite-scenarios';
-import { resolveInput, getScenarios } from '../../../../src/dynamic-data-helper';
+import { resolveInput, getScenarios } from '../../../../src/dymanic-data-suscription-helper';
 
 const version = '3.42.5';
 
@@ -26,7 +26,7 @@ describe('Invite people Management', () => {
       const { type } = scenario;
       const { email } = scenario.fields;
       const { mailMsg } = scenario.oracles;
-      const { getSaveBtn, getEmailInput } = invitePage;
+      const { getSaveBtn, getEmailInput } = escenariosPage;
 
       cy.contains('Staff').click({force:true})
       cy.contains('Invite people').click({force:true})
@@ -39,7 +39,7 @@ describe('Invite people Management', () => {
 
 
         if (mailMsg) {
-          invitePage.getEmailResponse()
+          escenariosPage.getEmailResponse()
             .should('contain.text', mailMsg);
         }
 
