@@ -25,7 +25,8 @@
     "test-juan": "npm run auth-spec && npm run pwd-spec && npm run bio-spec && npm run update-pwd-spec",
     "test-laura": "npm run post-spec && npm run tags-spec",
     "test-jhon": "npm run page-create-spec && npm run page-del-spec && npm run gral-spec",
-    "test-pool": "npm run test-juan && npm run test-laura && npm run test-jhon"
+    "test-wilmar": "npm run invite-spec && npm run lab-access-spec && npm run lab-email-spec && npm run lab-stripe-spec && npm run lab-suscription-spec && npm run staff-invitation-spec && npm run staff-user-spec && npm run header-injection-spec",
+    "test-pool": "npm run test-juan && npm run test-laura && npm run test-jhon && npm run test-wilmar"
   },
   "author": "",
   "license": "ISC",
